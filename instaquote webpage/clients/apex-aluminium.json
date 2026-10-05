@@ -1,0 +1,53 @@
+{
+  "id": "apex-aluminium",
+  "businessName": "Apex Aluminium",
+  "legalName": "Apex Aluminium Works CC",
+  "tagline": "Strong frames. Straight lines. Built in Pretoria.",
+  "colors": { "brand": "#c2531b", "dark": "#1c1512" },
+  "notifyEmail": "sales@apexaluminium.example",
+  "stripHours": "Mon to Fri 08:00 - 17:00",
+  "footerNote": "Sample client site",
+  "hero": {
+    "eyebrow": "Pretoria's aluminium workshop",
+    "headline": "Frames that last, finished the way you want.",
+    "lead": "Apex builds windows, doors and shopfronts for homes and businesses across Pretoria and Centurion. Tell us the size, see the price.",
+    "checks": ["Own workshop", "Free quotes", "Quick turnaround"]
+  },
+  "stats": [
+    { "value": "9 yrs", "label": "Trading in Pretoria" },
+    { "value": "1,100+", "label": "Jobs completed" },
+    { "value": "4.8 / 5", "label": "Customer rating" }
+  ],
+  "services": {
+    "heading": "What we build",
+    "intro": "Everything is cut and assembled in our Silverton workshop.",
+    "items": [
+      { "icon": "window", "title": "Windows", "text": "Sliding and fixed aluminium windows in standard and custom sizes." },
+      { "icon": "door", "title": "Doors", "text": "Sliding, stacking and hinged doors with a range of finishes." },
+      { "icon": "shopfront", "title": "Shopfronts", "text": "Frontages for retail and offices, installed fast and clean." }
+    ]
+  },
+  "steps": [
+    { "title": "Price it online", "text": "Use the quote tool to get an estimate in seconds." },
+    { "title": "Site visit", "text": "We measure and confirm your final price." },
+    { "title": "Installed", "text": "Built in our workshop and fitted by our own team." }
+  ],
+  "quote": {
+    "intro": "Pick your product and size to see an estimate. Leave your number and we'll call you back.",
+    "bullets": ["Estimates exclude VAT", "Final price confirmed after measuring"]
+  },
+  "contact": {
+    "phone": "012 555 0199",
+    "emails": [
+      { "label": "Sales", "address": "sales@apexaluminium.example" },
+      { "label": "General", "address": "hello@apexaluminium.example" }
+    ],
+    "address": ["12 Foundry Street, Silverton", "Pretoria, Gauteng"],
+    "hours": ["Mon to Fri 08:00 - 17:00", "Closed weekends"],
+    "areas": "Pretoria, Centurion, Midrand"
+  },
+  "pricing": {
+    "rates": { "window": 2100, "door": 2450, "shopfront": 3600 },
+    "finish": { "anodized": 1.2 }
+  }
+}

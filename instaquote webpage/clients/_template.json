@@ -1,0 +1,48 @@
+{
+  "id": "new-client-name",
+  "businessName": "CHANGE ME Business Name",
+  "legalName": "CHANGE ME Business Name (Pty) Ltd",
+  "tagline": "CHANGE ME - one short line about what they do",
+  "colors": { "brand": "#1f7a8c", "dark": "#101a1e" },
+  "notifyEmail": "quotes@their-business.co.za",
+  "stripHours": "Mon to Fri 08:00 - 17:00",
+  "footerNote": "",
+  "hero": {
+    "eyebrow": "CHANGE ME - e.g. Aluminium specialists in Cape Town",
+    "headline": "CHANGE ME - the big headline",
+    "lead": "CHANGE ME - two sentences about the business.",
+    "checks": ["Free site measurement", "Guarantee", "Insured installers"]
+  },
+  "stats": [
+    { "value": "10+", "label": "Years in business" },
+    { "value": "500+", "label": "Jobs completed" }
+  ],
+  "services": {
+    "heading": "What we do",
+    "intro": "CHANGE ME",
+    "items": [
+      { "icon": "window", "title": "Windows", "text": "CHANGE ME" },
+      { "icon": "door", "title": "Doors", "text": "CHANGE ME" }
+    ]
+  },
+  "steps": [
+    { "title": "Get your estimate", "text": "CHANGE ME" },
+    { "title": "We measure on site", "text": "CHANGE ME" },
+    { "title": "Made and fitted", "text": "CHANGE ME" }
+  ],
+  "quote": {
+    "intro": "CHANGE ME",
+    "bullets": ["Estimates exclude VAT", "Final price confirmed after measuring"]
+  },
+  "projects": [],
+  "reviews": [],
+  "contact": {
+    "phone": "000 000 0000",
+    "whatsapp": "",
+    "emails": [ { "label": "Quotes", "address": "quotes@their-business.co.za" } ],
+    "address": ["Street address", "Suburb, City"],
+    "hours": ["Mon to Fri 08:00 - 17:00"],
+    "areas": "CHANGE ME"
+  },
+  "pricing": {}
+}

@@ -1,0 +1,73 @@
+{
+  "id": "glass-right",
+  "businessName": "Glass Right",
+  "legalName": "Glass Right (Pty) Ltd",
+  "tagline": "Aluminium and glass, made to measure",
+  "colors": { "brand": "#1f7a8c", "dark": "#101a1e" },
+  "notifyEmail": "quotes@glassright.example",
+  "stripHours": "Mon to Fri 07:30 - 17:00  |  Sat 08:00 - 13:00",
+  "footerNote": "Demo website",
+  "seo": {
+    "title": "Glass Right | Aluminium Windows, Doors & Glazing in Gauteng",
+    "description": "Made-to-measure aluminium windows, doors, shopfronts, balustrades and carports across Gauteng. Get an instant quote online."
+  },
+  "hero": {
+    "eyebrow": "Aluminium & glass specialists · Gauteng",
+    "headline": "Windows and doors, made to measure and fitted right.",
+    "lead": "From a single sliding window to a full shopfront, we manufacture and install quality aluminium and glazing across Johannesburg, Pretoria and the East Rand. Get a price in under a minute.",
+    "checks": ["Free site measurement", "5-year workmanship guarantee", "Fully insured installers"]
+  },
+  "stats": [
+    { "value": "15+", "label": "Years in business" },
+    { "value": "2,400+", "label": "Installations completed" },
+    { "value": "5-day", "label": "Typical lead time" },
+    { "value": "4.9 / 5", "label": "Average customer rating" }
+  ],
+  "services": {
+    "eyebrow": "What we make",
+    "heading": "One team for the whole job",
+    "intro": "We manufacture in our own workshop, so you get the right fit, honest pricing and one person to call.",
+    "items": [
+      { "icon": "window", "title": "Windows", "text": "Sliding, casement and fixed windows in powder-coated or anodised aluminium, single or double glazed." },
+      { "icon": "door", "title": "Doors", "text": "Stacking, sliding and hinged doors, from patio entrances to secure front doors." },
+      { "icon": "shopfront", "title": "Shopfronts", "text": "Strong, good-looking frontages for shops, offices and restaurants, installed with minimal disruption." },
+      { "icon": "balustrade", "title": "Balustrades", "text": "Aluminium and glass balustrades for stairs, balconies and pool areas, built to safety standards." },
+      { "icon": "carport", "title": "Carports", "text": "Neat, durable aluminium carports and covers designed to suit your home and your budget." },
+      { "icon": "glass", "title": "Glass & repairs", "text": "Replacement panes, new seals and rollers, and quick call-outs for broken glass." }
+    ]
+  },
+  "stepsHeading": "From first click to finished install",
+  "steps": [
+    { "title": "Get your estimate", "text": "Enter your sizes in our online quote tool and see a price range straight away, day or night." },
+    { "title": "We measure on site", "text": "A consultant visits, measures properly and confirms your final quote in writing. No obligation." },
+    { "title": "Made and fitted", "text": "We build to your measurements in our workshop and our own installers fit everything cleanly." }
+  ],
+  "quote": {
+    "heading": "Know your price before you pick up the phone",
+    "intro": "Choose your product, enter the size and finish, and get an estimate in seconds. Leave your number and a consultant will call to confirm.",
+    "bullets": ["Prices based on current Gauteng rates", "Estimates exclude VAT", "Final price confirmed after a free site visit"]
+  },
+  "projects": [
+    { "tag": "Residential", "title": "Bryanston family home", "text": "Fourteen powder-coated sliding windows with double glazing, replacing old steel frames." },
+    { "tag": "Commercial", "title": "Rosebank café shopfront", "text": "Full anodised shopfront with stacking doors, installed over a single weekend." },
+    { "tag": "Balustrade", "title": "Fourways townhouse complex", "text": "Glass and aluminium balustrades across twelve balconies, finished in matte black." }
+  ],
+  "reviews": [
+    { "text": "Quote online, measured two days later, installed the next week. The windows fit perfectly and the team cleaned up after themselves.", "name": "Thabo M.", "place": "Randburg" },
+    { "text": "The online estimate was within a few hundred rand of the final price. Refreshing to deal with a company that is upfront.", "name": "Sarah van der Merwe", "place": "Pretoria East" },
+    { "text": "They replaced our whole shopfront without us closing for a day. Looks incredible and customers keep commenting.", "name": "Priya N.", "place": "Bedfordview" }
+  ],
+  "contact": {
+    "phone": "011 555 0142",
+    "whatsapp": "082 555 0178",
+    "emails": [
+      { "label": "Quotes", "address": "quotes@glassright.example" },
+      { "label": "General", "address": "info@glassright.example" },
+      { "label": "Accounts", "address": "accounts@glassright.example" }
+    ],
+    "address": ["Unit 7, Sparrow Business Park", "31 Anvil Road, Wadeville", "Germiston, Gauteng"],
+    "hours": ["Mon to Fri 07:30 - 17:00", "Sat 08:00 - 13:00", "Closed Sundays & public holidays"],
+    "areas": "Johannesburg, Pretoria, East Rand, West Rand"
+  },
+  "pricing": {}
+}

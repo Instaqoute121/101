@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Instant Quote</title>
+<style>
+  :root { --brand:#0f6b72; --ink:#14282b; --mist:#eef5f5; --line:#c9dcdd; }
+  * { box-sizing:border-box; }
+  body { margin:0; font-family:"Segoe UI",system-ui,sans-serif; color:var(--ink); background:var(--mist); }
+  .wrap { max-width:620px; margin:0 auto; padding:24px 16px 48px; }
+  h1 { font-size:1.7rem; margin:0 0 4px; color:var(--brand); }
+  .tag { margin:0 0 20px; opacity:.75; }
+  form { background:#fff; border:1px solid var(--line); border-radius:14px; padding:20px; display:grid; gap:14px; }
+  .row { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  label { display:grid; gap:4px; font-size:.9rem; font-weight:600; }
+  input, select { font:inherit; padding:10px; border:1px solid var(--line); border-radius:8px; background:#fff; width:100%; }
+  input:focus-visible, select:focus-visible, button:focus-visible { outline:3px solid var(--brand); outline-offset:1px; }
+  .section { font-size:.8rem; text-transform:uppercase; letter-spacing:.06em; opacity:.6; margin-top:6px; }
+  button { font:inherit; font-weight:700; padding:13px; border:0; border-radius:8px; background:var(--brand); color:#fff; cursor:pointer; }
+  button:disabled { opacity:.6; cursor:wait; }
+  #result { margin-top:16px; background:#fff; border:2px solid var(--brand); border-radius:14px; padding:18px; display:none; }
+  #result .price { font-size:1.9rem; font-weight:700; color:var(--brand); }
+  #result small { display:block; margin-top:8px; opacity:.7; }
+  #error { color:#a32020; margin-top:12px; display:none; }
+  .hidden { display:none; }
+  body.embedded { background:transparent; }
+  body.embedded .wrap { padding:8px 4px 16px; }
+  body.embedded h1, body.embedded .tag { display:none; }
+  @media (max-width:480px) { .row { grid-template-columns:1fr; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1 id="biz">Instant Quote</h1>
+  <p class="tag" id="tag">Get a price estimate in seconds.</p>
+
+  <form id="form">
+    <label>What do you need?
+      <select name="product" id="product"></select>
+    </label>
+
+    <div class="row" id="areaFields">
+      <label>Width (mm)<input name="widthMm" type="number" min="100" max="6000" inputmode="numeric"></label>
+      <label>Height (mm)<input name="heightMm" type="number" min="100" max="6000" inputmode="numeric"></label>
+    </div>
+    <div id="lengthFields" class="hidden">
+      <label>Length (mm)<input name="lengthMm" type="number" min="300" max="50000" inputmode="numeric"></label>
+    </div>
+
+    <div class="row">
+      <label>Finish<select name="finish" id="finish"></select></label>
+      <label>Quantity<input name="quantity" type="number" min="1" max="100" value="1" inputmode="numeric"></label>
+    </div>
+    <div class="row">
+      <label id="glazingBox">Glazing<select name="glazing" id="glazing"></select></label>
+      <label>Site access<select name="access" id="access"></select></label>
+    </div>
+
+    <div class="section">Your details (optional)</div>
+    <div class="row">
+      <label>Name<input name="customerName" autocomplete="name"></label>
+      <label>Phone<input name="customerPhone" type="tel" autocomplete="tel"></label>
+    </div>
+    <button type="submit" id="go">Get my estimate</button>
+  </form>
+
+  <p id="error" role="alert"></p>
+  <div id="result" aria-live="polite">
+    <div>Estimated price</div>
+    <div class="price" id="range"></div>
+    <small>Estimate only, excluding VAT. The final quote is confirmed after measurement.</small>
+    <small id="thanks" style="display:none;font-weight:600;opacity:1">Thank you. One of our consultants will call you shortly to confirm the details.</small>
+  </div>
+</div>
+
+<script>
+const $ = (id) => document.getElementById(id);
+
+// When this page sits inside a client's website, drop the heading (the site
+// already has one) and tell the parent page how tall we are.
+const embedded = window.self !== window.top;
+if (embedded) document.body.classList.add("embedded");
+function reportHeight() {
+  if (!embedded) return;
+  parent.postMessage({ type: "iq-height", height: document.documentElement.scrollHeight }, location.origin);
+}
+window.addEventListener("load", reportHeight);
+new ResizeObserver(reportHeight).observe(document.body);
+
+// If the address is /q/glass-right, remember "glass-right" and send it
+// with every request. On the plain address this stays empty (default prices).
+const m = location.pathname.match(/^\/q\/([^/]+)/);
+const clientId = m ? decodeURIComponent(m[1]) : "";
+const headers = { "Content-Type": "application/json" };
+if (clientId) headers["x-client-id"] = clientId;
+
+const LABELS = {
+  window: "Window", door: "Door", shopfront: "Shopfront",
+  balustrade: "Balustrade (per metre)", carport: "Carport",
+  mill: "Mill finish", powder: "Powder coated", anodized: "Anodized",
+  none: "No glazing", single: "Single glazed", double: "Double glazed",
+  easy: "Easy (ground floor)", upper: "Upper floor", difficult: "Difficult access",
+};
+const label = (k) => LABELS[k] || k.charAt(0).toUpperCase() + k.slice(1);
+const fill = (el, keys) => { el.innerHTML = keys.map((k) => `<option value="${k}">${label(k)}</option>`).join(""); };
+const money = (n) => "R" + n.toLocaleString("en-ZA");
+
+let card;
+
+function syncProduct() {
+  const isLength = card.rates[$("product").value].unit === "length";
+  $("areaFields").classList.toggle("hidden", isLength);
+  $("lengthFields").classList.toggle("hidden", !isLength);
+  $("glazingBox").classList.toggle("hidden", isLength);
+}
+
+async function start() {
+  if (clientId) {
+    const c = await fetch("/api/client", { headers });
+    if (c.ok) {
+      const client = await c.json();
+      document.documentElement.style.setProperty("--brand", client.primaryColor);
+      $("biz").textContent = client.businessName;
+      if (client.tagline) $("tag").textContent = client.tagline;
+      document.title = client.businessName + " - Instant Quote";
+    }
+  }
+  card = await (await fetch("/api/rates", { headers })).json();
+  fill($("product"), Object.keys(card.rates));
+  fill($("finish"), Object.keys(card.finish));
+  fill($("glazing"), Object.keys(card.glazing));
+  fill($("access"), Object.keys(card.access));
+  $("finish").value = "powder";
+  syncProduct();
+}
+$("product").addEventListener("change", syncProduct);
+
+$("form").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  $("error").style.display = "none";
+  $("go").disabled = true;
+  const spec = Object.fromEntries(new FormData(e.target));
+  try {
+    const res = await fetch("/api/quote", { method: "POST", headers, body: JSON.stringify(spec) });
+    const out = await res.json();
+    if (!res.ok) throw new Error(out.error || "Something went wrong.");
+    $("range").textContent = money(out.low) + " to " + money(out.high);
+    $("thanks").style.display = (spec.customerPhone || "").trim() ? "block" : "none";
+    $("result").style.display = "block";
+    $("result").scrollIntoView({ behavior: "smooth", block: "nearest" });
+  } catch (err) {
+    $("result").style.display = "none";
+    $("error").textContent = err.message;
+    $("error").style.display = "block";
+  } finally {
+    $("go").disabled = false;
+  }
+});
+
+start();
+</script>
+</body>
+</html>
